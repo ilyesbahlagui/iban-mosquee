@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informations bancaires – Mosquée de Tarascon</title>
+    <!-- favicon mosquee -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕌</text></svg>">
+    <!-- fonts google -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <!-- styles -->
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
+
 <body>
     <div class="container">
         <header class="header">
-            <div class="mosque-icon">🕌</div>
-            <h1 class="title">Mosquée de Tarascon - Informations bancaires </h1>
-            <p class="subtitle">
-                Adresse : 43 Rue de Ledru Rollin, 13150 Tarascon
-            </p>
+            <h1 class="main-title">
+                <span class="mosque-icon">🕌</span>
+                Mosquée de Tarascon
+            </h1>
+            <h2 class="sub-title">Informations bancaires</h2>
+            <div class="divider"></div>
+            <p class="address">43 Rue de Ledru Rollin, 13150 Tarascon</p>
         </header>
 
         <div class="card">
             <div class="info-item">
-                <div class="info-label">
-                    <span>💳</span>
-                    IBAN
-                </div>
+                <div class="info-label">IBAN</div>
                 <div class="info-value" id="iban">FR76 XXXX XXXX XXXX XXXX XXXX XXX</div>
                 <button class="copy-btn" onclick="copyToClipboard('iban', this)">
                     <span class="copy-icon">📋</span>
@@ -32,9 +36,10 @@
                 </button>
             </div>
 
+            <!-- bloc bic -->
             <div class="info-item">
                 <div class="info-label">
-                    <span>🏦</span>
+                    <!-- <span class="info-icon">�</span> -->
                     BIC
                 </div>
                 <div class="info-value" id="bic">XXXXXXXX</div>
@@ -43,88 +48,27 @@
                     Copier
                 </button>
             </div>
+
+            <div class="action-buttons">
+                <button class="action-btn pdf-btn" onclick="downloadPDF()">
+                    <span class="btn-icon">📄</span>
+                    Télécharger le RIB
+                </button>
+
+                <button class="action-btn prayer-btn" onclick="openPrayerTimes()">
+                    <span class="btn-icon">🕐</span>
+                    Horaires de prière
+                </button>
+            </div>
         </div>
 
         <footer>
-            <p class="footer-text">
-                En cas de doute, veuillez contacter un responsable de la mosquée.
-            </p>
+            <p class="footer-text">En cas de doute, veuillez contacter un responsable de la mosquée.</p>
         </footer>
     </div>
 
-    <div id="notification" class="notification">
-        Copié dans le presse-papier !
-    </div>
-
-    <script>
-        async function copyToClipboard(elementId, button) {
-            const element = document.getElementById(elementId);
-            const text = element.textContent;
-            
-            try {
-                await navigator.clipboard.writeText(text);
-                showNotification();
-                
-                // Effet visuel sur le bouton
-                const originalText = button.innerHTML;
-                button.classList.add('copied');
-                button.innerHTML = '<span class="copy-icon">✓</span>Copié !';
-                
-                setTimeout(() => {
-                    button.classList.remove('copied');
-                    button.innerHTML = originalText;
-                }, 2000);
-                
-            } catch (err) {
-                // Fallback pour les navigateurs plus anciens
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                textArea.style.position = 'fixed';
-                textArea.style.left = '-999999px';
-                textArea.style.top = '-999999px';
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                
-                try {
-                    document.execCommand('copy');
-                    showNotification();
-                } catch (err) {
-                    console.error('Erreur lors de la copie:', err);
-                }
-                
-                document.body.removeChild(textArea);
-            }
-        }
-
-        function showNotification() {
-            const notification = document.getElementById('notification');
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // Animation d'entrée au chargement
-        document.addEventListener('DOMContentLoaded', function() {
-            // Amélioration de l'accessibilité
-            const buttons = document.querySelectorAll('.copy-btn');
-            buttons.forEach(button => {
-                button.setAttribute('aria-label', 'Copier dans le presse-papier');
-            });
-            
-            // Gestion du focus pour l'accessibilité
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Tab') {
-                    document.body.classList.add('keyboard-navigation');
-                }
-            });
-            
-            document.addEventListener('mousedown', function() {
-                document.body.classList.remove('keyboard-navigation');
-            });
-        });
-    </script>
+    <div id="notification" class="notification">Copié dans le presse-papier !</div>
+    <script src="/assets/js/main.js"></script>
 </body>
+
 </html>
