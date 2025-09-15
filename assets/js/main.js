@@ -60,7 +60,7 @@ function showNotification() {
 // dl le pdf
 function downloadPDF() {
     const link = document.createElement('a');
-    link.href = '/assets/pdf.pdf';
+    link.href = 'assets/pdf.pdf';
     link.download = 'iban-mosquee-tarascon.pdf';
     document.body.appendChild(link);
     link.click();
